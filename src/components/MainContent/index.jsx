@@ -47,7 +47,7 @@ class MainContent extends Component {
       this.setState(oldState => {
         let newState = {
           ...oldState,
-          ["side" + sideIndex]: value
+          ["side" + sideIndex]: parseInt(value)
         };
 
         const { side1, side2, side3 } = newState;

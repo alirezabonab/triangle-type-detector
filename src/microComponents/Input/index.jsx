@@ -22,7 +22,7 @@ class InputComponent extends Component {
     const { min, max } = this.props;
 
     this.setState((oldState) => ({
-      outOfRangeError: value > max || value < min
+      outOfRangeError: value === NaN || value > max || value < min
     }));
 
     callback(value);
