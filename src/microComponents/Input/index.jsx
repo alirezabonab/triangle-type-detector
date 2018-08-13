@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import Sizes from '../../design/sizes'
+import Sizes from "../../design/sizes";
 const styles = theme => ({
   root: {
     marginLeft: theme.spacing.unit,
@@ -11,12 +11,20 @@ const styles = theme => ({
 });
 
 class InputComponent extends Component {
-  
-
+  constructor(props) {
+    super(props);
+    this.state = { outOfRangeError: false };
+  }
   onChange = callback => event => {
     if (!callback) return;
 
     const value = event.target.value;
+    const { min, max } = this.props;
+
+    this.setState((oldState) => ({
+      outOfRangeError: value > max || value < min
+    }));
+
     callback(value);
   };
 
@@ -29,7 +37,7 @@ class InputComponent extends Component {
 
   onKeyDown = ({ onEnter }) => event => {
     if (!onEnter) return;
-    
+
     const value = event.target.value;
     if (event.keyCode === 13) return onEnter(value);
   };
@@ -40,13 +48,13 @@ class InputComponent extends Component {
       .filter(item => item.length)
       .join(" ");
 
-    const { value , placeholder = '' } = this.props;
+    const { value, placeholder = "" } = this.props;
     const { onChange, onClick, onEnter } = this.props;
-    const { InputProps,autoFocus,multiline } = this.props;
+    const { InputProps, autoFocus, multiline } = this.props;
 
     return (
       <TextField
-        error={this.props.error}
+        error={this.props.error || this.state.outOfRangeError}
         label={this.props.label}
         type={this.props.type}
         className={classNames}
