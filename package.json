@@ -1,5 +1,5 @@
 {
-  "name": "sc-test-case",
+  "name": "triangle-type-detector",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
